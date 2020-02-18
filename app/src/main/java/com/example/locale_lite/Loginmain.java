@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class Login extends AppCompatActivity {
+public class Loginmain extends AppCompatActivity {
 
     private View mProgressView;
     private View mLoginFormView;
@@ -25,29 +25,25 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_loginmain);
 
-        mLoginFormView= findViewById(R.id.login_form);
-        mProgressView= findViewById(R.id.login_progress);
-        tvLoad= findViewById(R.id.tvLoad);
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+        tvLoad = findViewById(R.id.tvLoad);
         ETemail= findViewById(R.id.ETemail);
         ETpassword= findViewById(R.id.ETpassword);
         BTNlogin= findViewById(R.id.BTNlogin);
         TVforgot= findViewById(R.id.TVforgot);
         TVregister= findViewById(R.id.TVregister);
 
-        //TVforgot.setVisibility(View.GONE);
+        TVforgot.setVisibility(View.GONE);
 
-        BTNlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+
 
         TVregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(com.example.locale_lite.Login.this,com.example.locale_lite.Register.class);
+                Intent intent= new Intent(Loginmain.this,com.example.locale_lite.Register.class);
                 startActivity(intent);
             }
         });
@@ -82,8 +78,7 @@ public class Login extends AppCompatActivity {
                     tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
-        }
-        else {
+        } else {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
