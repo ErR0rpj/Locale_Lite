@@ -12,6 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 
 public class Loginmain extends AppCompatActivity {
 
@@ -38,13 +44,69 @@ public class Loginmain extends AppCompatActivity {
 
         TVforgot.setVisibility(View.GONE);
 
+        BTNlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ETemail.getText().toString().isEmpty() || ETpassword.getText().toString().isEmpty()){
+                    Toast.makeText(Loginmain.this,"Enter all the fields",Toast.LENGTH_SHORT).show();
+                }
 
+                else{
+                    String email=ETemail.getText().toString().trim();
+                    String password=ETpassword.getText().toString().trim();
+
+                    showProgress(true);
+
+                    Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
+                        @Override
+                        public void handleResponse(BackendlessUser response) {
+                            Toast.makeText(Loginmain.this,"Login Successfully",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Loginmain.this,com.example.locale_lite.MainActivity.class));
+                            Loginmain.this.finish();
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+                            TVforgot.setVisibility(View.VISIBLE);
+                            Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),Toast.LENGTH_LONG).show();
+                            showProgress(false);
+                        }
+                    },true);
+                }
+            }
+        });
 
         TVregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(Loginmain.this,com.example.locale_lite.Register.class);
                 startActivity(intent);
+            }
+        });
+
+        TVforgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ETemail.getText().toString().isEmpty()){
+                    Toast.makeText(Loginmain.this,"Enter Email to reset password",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    String email=ETemail.getText().toString().trim();
+                    showProgress(true);
+                    Backendless.UserService.restorePassword(email, new AsyncCallback<Void>() {
+                        @Override
+                        public void handleResponse(Void response) {
+                            showProgress(false);
+                            Toast.makeText(Loginmain.this,"Instruction to reset password sent to Email address",Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+                            showProgress(false);
+                            Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         });
 
