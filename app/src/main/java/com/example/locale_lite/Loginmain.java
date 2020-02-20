@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
+import com.backendless.async.callback.Fault;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.local.UserIdStorageFactory;
 
 public class Loginmain extends AppCompatActivity {
 
@@ -56,6 +58,7 @@ public class Loginmain extends AppCompatActivity {
                     String password=ETpassword.getText().toString().trim();
 
                     showProgress(true);
+                    tvLoad.setText("Logging in");
 
                     Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
                         @Override
@@ -107,6 +110,40 @@ public class Loginmain extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        showProgress(true);
+
+        Backendless.UserService.isValidLogin(new AsyncCallback<Boolean>() {
+            @Override
+            public void handleResponse(Boolean response) {
+                if(response){
+                    String userObjectId= UserIdStorageFactory.instance().getStorage().get();
+                    Backendless.Data.of(BackendlessUser.class).findById(userObjectId, new AsyncCallback<BackendlessUser>() {
+                        @Override
+                        public void handleResponse(BackendlessUser response) {
+                            startActivity(new Intent(Loginmain.this,com.example.locale_lite.MainActivity.class));
+                            Loginmain.this.finish();
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+                            showProgress(false);
+                            Toast.makeText(Loginmain.this, "Error:"+fault.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+                else{
+                    showProgress(false);
+                }
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                showProgress(false);
+                Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
 

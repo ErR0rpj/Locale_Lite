@@ -60,6 +60,7 @@ public class Register extends AppCompatActivity {
                     user.setProperty("phone",phone);
 
                     showProgress(true);
+                    tvLoad.setText("Registering");
 
                     Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>() {
                         @Override
