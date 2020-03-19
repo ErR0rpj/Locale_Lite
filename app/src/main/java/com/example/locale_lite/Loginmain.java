@@ -23,6 +23,8 @@ import com.backendless.persistence.local.UserIdStorageFactory;
 
 public class Loginmain extends AppCompatActivity {
 
+    public BackendlessUser user;
+    public String name,phone;
     private View mProgressView;
     private View mLoginFormView;
     private TextView tvLoad;
@@ -63,6 +65,9 @@ public class Loginmain extends AppCompatActivity {
                     Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
                         @Override
                         public void handleResponse(BackendlessUser response) {
+                            user=Backendless.UserService.CurrentUser();
+                            name=(String)user.getProperty("name");
+                            phone=(String)user.getProperty("phone");
                             Toast.makeText(Loginmain.this,"Login Successfully",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Loginmain.this,com.example.locale_lite.MainActivity.class));
                             Loginmain.this.finish();
@@ -123,6 +128,7 @@ public class Loginmain extends AppCompatActivity {
                     Backendless.Data.of(BackendlessUser.class).findById(userObjectId, new AsyncCallback<BackendlessUser>() {
                         @Override
                         public void handleResponse(BackendlessUser response) {
+                            user=Backendless.UserService.CurrentUser();
                             startActivity(new Intent(Loginmain.this,com.example.locale_lite.MainActivity.class));
                             Loginmain.this.finish();
                         }
