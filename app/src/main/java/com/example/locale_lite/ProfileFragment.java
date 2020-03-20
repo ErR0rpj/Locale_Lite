@@ -39,6 +39,12 @@ public class ProfileFragment extends Fragment {
         tvLoad=view.findViewById(R.id.tvLoad);
         TVlogout=view.findViewById(R.id.TVlogout);
 
+        BackendlessUser user = Backendless.UserService.CurrentUser();
+        String email = (String)(user.getProperty("name"));
+        TVprofile_pe_name.setText(email);
+        String phone= (String)(user.getProperty("phone"));
+        TVprofile_pe_phone.setText(phone);
+
         TVlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
