@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/TVrate" />
 
     <TextView
-        android:id="@+id/TVhelp2"
+        android:id="@+id/TVhelp"
         android:layout_width="357dp"
         android:layout_height="52dp"
         android:layout_marginTop="1dp"
@@ -52,10 +52,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/TVprovide_service2" />
+        app:layout_constraintTop_toBottomOf="@+id/TVprovide_service" />
 
     <TextView
-        android:id="@+id/TVprovide_service2"
+        android:id="@+id/TVprovide_service"
         android:layout_width="357dp"
         android:layout_height="52dp"
         android:layout_marginTop="5dp"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/IVedit"
+            android:id="@+id/IVprofile_edit"
             android:layout_width="49dp"
             android:layout_height="41dp"
             android:layout_gravity="right|center_vertical"
@@ -183,7 +183,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/TVhelp2" />
+        app:layout_constraintTop_toBottomOf="@+id/TVhelp" />
 
     <TextView
         android:id="@+id/TVrate"
@@ -207,6 +207,7 @@
         android:layout_height="147dp"
         android:layout_marginTop="1dp"
         android:background="#FFFFFF"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:text="                               Logout"
         android:textColor="#FF0000"

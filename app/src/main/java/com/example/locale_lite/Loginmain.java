@@ -65,9 +65,6 @@ public class Loginmain extends AppCompatActivity {
                     Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
                         @Override
                         public void handleResponse(BackendlessUser response) {
-                            user=Backendless.UserService.CurrentUser();
-                            name=(String)user.getProperty("name");
-                            phone=(String)user.getProperty("phone");
                             Toast.makeText(Loginmain.this,"Login Successfully",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Loginmain.this,com.example.locale_lite.MainActivity.class));
                             Loginmain.this.finish();
@@ -178,9 +175,9 @@ public class Loginmain extends AppCompatActivity {
             tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
             tvLoad.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
         } else {
