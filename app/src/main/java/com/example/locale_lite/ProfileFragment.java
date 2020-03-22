@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.backendless.Backendless;
@@ -24,10 +25,11 @@ import com.backendless.exceptions.BackendlessFault;
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
-    TextView TVprofile_pe_name,TVprofile_pe_phone,TVlogout;
+    TextView TVprofile_pe_name,TVprofile_pe_phone,TVlogout,TVprovide_service;
     private View mProgressView;
     private View mLoginFormView;
     private TextView tvLoad;
+    Toolbar toolbar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,12 +40,21 @@ public class ProfileFragment extends Fragment {
         mProgressView=view.findViewById(R.id.login_progress);
         tvLoad=view.findViewById(R.id.tvLoad);
         TVlogout=view.findViewById(R.id.TVlogout);
+        TVprovide_service=view.findViewById(R.id.TVprovide_service);
 
         BackendlessUser user = Backendless.UserService.CurrentUser();
         String email = (String)(user.getProperty("name"));
         TVprofile_pe_name.setText(email);
         String phone= (String)(user.getProperty("phone"));
         TVprofile_pe_phone.setText(phone);
+
+        TVprovide_service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),com.example.locale_lite.Register_provider.class);
+                startActivity(intent);
+            }
+        });
 
         TVlogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +82,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    //this is not working now.
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2){
