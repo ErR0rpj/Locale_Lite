@@ -45,19 +45,22 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(ETphone.getText().toString().isEmpty() || ETemail.getText().toString().isEmpty() || ETname.getText().toString().isEmpty() || ETpassword.getText().toString().isEmpty()){
-                    Toast.makeText(Register.this,"Enter all the fields",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this,
+                            "Enter all the fields",Toast.LENGTH_SHORT).show();
                 }
                 else if(ETpassword.getText().toString().trim().equals(ETconfirm.getText().toString().trim())){
                     String name= ETname.getText().toString();
                     String email=ETemail.getText().toString().trim();
                     String phone= ETphone.getText().toString().trim();
                     String password=ETpassword.getText().toString().trim();
+                    String is_provider="false";
 
                     BackendlessUser user= new BackendlessUser();
                     user.setEmail(email);
                     user.setPassword(password);
                     user.setProperty("name",name);
                     user.setProperty("phone",phone);
+                    user.setProperty("is_provider",is_provider);
 
                     showProgress(true);
                     tvLoad.setText("Registering");

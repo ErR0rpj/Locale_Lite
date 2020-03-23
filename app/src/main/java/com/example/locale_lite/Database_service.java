@@ -1,9 +1,10 @@
 package com.example.locale_lite;
-// This is database.
+// This is database. For service provider.
+// Changes in AplicationClass, Loginmain class and where to use database.
 import java.util.Date;
 
 public class Database_service {
-    private String named,email,business_address,gender,phone,service,city;
+    private String name,email,business_address,gender,phone,service,city;
     private Date created,updated;
     private String objectId;
 
@@ -27,12 +28,12 @@ public class Database_service {
         this.service=service;
     }
 
-    public String getNamed() {
-        return named;
+    public String getName() {
+        return name;
     }
 
-    public void setNamed(String named) {
-        this.named = named;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

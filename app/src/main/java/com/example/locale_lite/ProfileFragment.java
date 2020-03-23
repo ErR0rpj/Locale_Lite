@@ -32,7 +32,8 @@ public class ProfileFragment extends Fragment {
     Toolbar toolbar;
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_profile,container,false);
         TVprofile_pe_name=view.findViewById(R.id.TVprofile_pe_name);
         TVprofile_pe_phone=view.findViewById(R.id.TVprofile_pe_phone);
@@ -51,7 +52,8 @@ public class ProfileFragment extends Fragment {
         TVprovide_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),com.example.locale_lite.Register_provider.class);
+                Intent intent = new Intent(getActivity(),
+                        com.example.locale_lite.Register_provider.class);
                 startActivity(intent);
             }
         });
@@ -67,13 +69,15 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void handleResponse(Void response) {
                         Toast.makeText(getActivity(),"Logged out",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getActivity(),com.example.locale_lite.Loginmain.class));
+                        startActivity(new Intent(getActivity(),
+                                com.example.locale_lite.Loginmain.class));
                         getActivity().finish();
                     }
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
-                        Toast.makeText(getActivity(),"Error:"+fault.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),"Error:"+fault.getMessage(),
+                                Toast.LENGTH_LONG).show();
                         //showProgress(false);
                     }
                 });

@@ -49,8 +49,9 @@ public class Loginmain extends AppCompatActivity {
         BTNlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ETemail.getText().toString().isEmpty() || ETpassword.getText().toString().isEmpty()){
-                    Toast.makeText(Loginmain.this,"Enter all the fields",Toast.LENGTH_SHORT).show();
+                if(ETemail.getText().toString().isEmpty()||ETpassword.getText().toString().isEmpty()){
+                    Toast.makeText(Loginmain.this,"Enter all the fields",
+                            Toast.LENGTH_SHORT).show();
                 }
 
                 else{
@@ -60,18 +61,24 @@ public class Loginmain extends AppCompatActivity {
                     showProgress(true);
                     tvLoad.setText("Logging in");
 
-                    Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
+                    Backendless.UserService.login(email, password,
+                            new AsyncCallback<BackendlessUser>() {
                         @Override
                         public void handleResponse(BackendlessUser response) {
-                            Toast.makeText(Loginmain.this,"Login Successfully",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Loginmain.this,com.example.locale_lite.MainActivity.class));
+                            ApplicationClass.user=response; // Database: current user is set. So that
+                            // it can be used later on also.
+                            Toast.makeText(Loginmain.this,"Login Successfully",
+                                    Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Loginmain.this,
+                                    com.example.locale_lite.MainActivity.class));
                             Loginmain.this.finish();
                         }
 
                         @Override
                         public void handleFault(BackendlessFault fault) {
                             TVforgot.setVisibility(View.VISIBLE);
-                            Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),
+                                    Toast.LENGTH_LONG).show();
                             showProgress(false);
                         }
                     },true);
@@ -91,7 +98,8 @@ public class Loginmain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(ETemail.getText().toString().isEmpty()){
-                    Toast.makeText(Loginmain.this,"Enter Email to reset password",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Loginmain.this,"Enter Email to reset password",
+                            Toast.LENGTH_LONG).show();
                 }
                 else{
                     String email=ETemail.getText().toString().trim();
@@ -100,13 +108,16 @@ public class Loginmain extends AppCompatActivity {
                         @Override
                         public void handleResponse(Void response) {
                             showProgress(false);
-                            Toast.makeText(Loginmain.this,"Instruction to reset password sent to Email address",Toast.LENGTH_LONG).show();
+                            Toast.makeText(Loginmain.this,
+                                    "Instruction to reset password sent to Email address",
+                                    Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void handleFault(BackendlessFault fault) {
                             showProgress(false);
-                            Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -120,18 +131,23 @@ public class Loginmain extends AppCompatActivity {
             public void handleResponse(Boolean response) {
                 if(response){
                     final String userObjectId= UserIdStorageFactory.instance().getStorage().get();
-                    Backendless.Data.of(BackendlessUser.class).findById(userObjectId, new AsyncCallback<BackendlessUser>() {
+                    Backendless.Data.of(BackendlessUser.class).findById(userObjectId,
+                            new AsyncCallback<BackendlessUser>() {
                         @Override
                         public void handleResponse(BackendlessUser response) {
+                            ApplicationClass.user=response; // Database: current user is set. So that
+                            // it can be used later on also.
                             Backendless.UserService.setCurrentUser(response);
-                            startActivity(new Intent(Loginmain.this,com.example.locale_lite.MainActivity.class));
+                            startActivity(new Intent(Loginmain.this,
+                                    com.example.locale_lite.MainActivity.class));
                             Loginmain.this.finish();
                         }
 
                         @Override
                         public void handleFault(BackendlessFault fault) {
                             showProgress(false);
-                            Toast.makeText(Loginmain.this, "Error:"+fault.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Loginmain.this, "Error:"+fault.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -144,7 +160,8 @@ public class Loginmain extends AppCompatActivity {
             @Override
             public void handleFault(BackendlessFault fault) {
                 showProgress(false);
-                Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(Loginmain.this,"Error:"+fault.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         });
 
