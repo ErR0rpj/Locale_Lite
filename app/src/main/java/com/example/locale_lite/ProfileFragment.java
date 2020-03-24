@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
     private View mLoginFormView;
     private TextView tvLoad;
     Toolbar toolbar;
+    String is_provider,t="false";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -48,13 +49,21 @@ public class ProfileFragment extends Fragment {
         TVprofile_pe_name.setText(email);
         String phone= (String)(user.getProperty("phone"));
         TVprofile_pe_phone.setText(phone);
+        is_provider=(String) (user.getProperty("is_provider"));
+
 
         TVprovide_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),
-                        com.example.locale_lite.Register_provider.class);
-                startActivity(intent);
+                if(is_provider.equals(t)) {
+                    Intent intent = new Intent(getActivity(),
+                            com.example.locale_lite.Register_provider.class);
+                    startActivity(intent);
+                }
+                else if(!is_provider.equals(t)){
+                    //Remove this after home page of provider created.
+                    Toast.makeText(getActivity(),"Already Registered",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
